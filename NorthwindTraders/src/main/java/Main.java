@@ -32,6 +32,8 @@ public class Main {
                 ifContinue = false;
             }
         }
+
+        System.out.println("\n\nHave a Nice Day! :)");
     }
 
 
@@ -51,14 +53,22 @@ public class Main {
 
                 if (userChoice == 1) {
                     String productName = results.getString("ProductName");
-                    System.out.println(productName);
+
+                    System.out.println("Product ID: " + results.getString("ProductID"));
+                    System.out.println("Product Name: " + results.getString("ProductName"));
+                    System.out.println("Product Price: $" + results.getString("UnitPrice"));
+                    System.out.println("Stock: " + results.getString("UnitsInStock"));
+                    System.out.println("----------------------------");
+
                 } else if (userChoice == 2) {
-                    String categoryName = results.getString("CategoryName");
-                    System.out.println(categoryName);
+                    System.out.println("Category ID: " + results.getString("CategoryID"));
+                    System.out.println("Category Name: " + results.getString("CategoryName"));
+                    System.out.println("Description: " + results.getString("Description"));
+                    System.out.println("----------------------------------------------");
                 } else if (userChoice == 3) {
-                    String employeeFirstName = results.getString("FirstName");
-                    String employeeLastName = results.getString("LastName");
-                    System.out.println(employeeFirstName + " " + employeeLastName);
+                    System.out.println("Employee Name: " + results.getString("FirstName") + " " + results.getString("LastName"));
+                    System.out.println("Employee Title: " + results.getString("Title"));
+                    System.out.println("-------------------------------------------");
                 }
             }
         } catch (SQLException e) {
