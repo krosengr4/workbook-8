@@ -16,17 +16,15 @@ public class Main {
 
         String username = "root";
         String password = "611854kr";
+        String url = "jdbc:mysql://localhost:3306/sakila";
+        //define the query
+        String query = "SELECT * from actor;";
 
         //Use the database URL to point to the correct database
-        Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/sakila", username, password
-        );
+        Connection connection = DriverManager.getConnection(url, username, password);
 
         // Create statement used tied to open the connection
         Statement statement = connection.createStatement();
-
-        //define the query
-        String query = "SELECT * from actor;";
 
         //execute the query
         ResultSet results = statement.executeQuery(query);
