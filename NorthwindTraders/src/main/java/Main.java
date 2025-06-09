@@ -1,23 +1,54 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException {
+
+        String query = "";
+        Scanner myScanner = new Scanner(System.in);
+
+        System.out.println("-----OPTIONS-----");
+        System.out.println("1 - See all product names\n2 - See product categories\n3 - See all employee names");
+        System.out.println("Please select 1-3: ");
+        int userChoice = Integer.parseInt(myScanner.nextLine());
+
+        switch (userChoice) {
+            case 1 -> query = "SELECT * from products;";
+            case 2 -> query = "SELECT * from categories;";
+            case 3 -> query = "SELECT * from employees;";
+            default -> System.err.println("ERROR! Please enter 1 through 3!");
+        }
+
+        queryNorthwindColumn(userChoice, query);
+    }
+
+
+    public static void queryNorthwindColumn(int userChoice, String query) throws ClassNotFoundException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         String userName = "root";
         String password = "611854kr";
         String url = "jdbc:mysql://localhost:3306/northwind";
-        String query = "SELECT * from products;";
 
         try (Connection connection = DriverManager.getConnection(url, userName, password)) {
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(query);
 
             while (results.next()) {
-                String productName = results.getString("ProductName");
-                System.out.println(productName);
+
+                if (userChoice == 1) {
+                    String productName = results.getString("ProductName");
+                    System.out.println(productName);
+                } else if (userChoice == 2) {
+                    String categoryName = results.getString("CategoryName");
+                    System.out.println(categoryName);
+                } else if (userChoice == 3) {
+                    String employeeFirstName = results.getString("FirstName");
+                    String employeeLastName = results.getString("LastName");
+                    System.out.println(employeeFirstName + " " + employeeLastName);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36a93d5e-67a0-4c5c-b7ec-98cf6e723afe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../NorthwindTraders/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../NorthwindTraders/.idea/betterCommentsSettings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../NorthwindTraders/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../NorthwindTraders/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../NorthwindTraders/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../NorthwindTraders/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../NorthwindTraders/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NorthwindTraders/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../NorthwindTraders/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
