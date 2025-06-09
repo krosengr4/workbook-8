@@ -5,22 +5,33 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException {
 
-        String query = "";
-        Scanner myScanner = new Scanner(System.in);
+        boolean ifContinue = true;
 
-        System.out.println("-----OPTIONS-----");
-        System.out.println("1 - See all product names\n2 - See product categories\n3 - See all employee names");
-        System.out.println("Please select 1-3: ");
-        int userChoice = Integer.parseInt(myScanner.nextLine());
+        while (ifContinue){
+            String query = "";
+            Scanner myScanner = new Scanner(System.in);
 
-        switch (userChoice) {
-            case 1 -> query = "SELECT * from products;";
-            case 2 -> query = "SELECT * from categories;";
-            case 3 -> query = "SELECT * from employees;";
-            default -> System.err.println("ERROR! Please enter 1 through 3!");
+            System.out.println("-----OPTIONS-----");
+            System.out.println("1 - See all product names\n2 - See product categories\n3 - See all employee names");
+            System.out.println("Please select 1-3: ");
+            int userQueryChoice = Integer.parseInt(myScanner.nextLine());
+
+            switch (userQueryChoice) {
+                case 1 -> query = "SELECT * from products;";
+                case 2 -> query = "SELECT * from categories;";
+                case 3 -> query = "SELECT * from employees;";
+                default -> System.err.println("ERROR! Please enter 1 through 3!");
+            }
+
+            queryNorthwindColumn(userQueryChoice, query);
+
+            System.out.println("\n\nWould you like to search for another? (Y or N): ");
+            String userContinue = myScanner.nextLine();
+
+            if (userContinue.equalsIgnoreCase("n")) {
+                ifContinue = false;
+            }
         }
-
-        queryNorthwindColumn(userChoice, query);
     }
 
 
