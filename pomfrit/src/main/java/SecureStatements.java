@@ -11,7 +11,7 @@ public class SecureStatements {
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         String username = "root";
-        String passWord = "611854kr";
+        String passWord = System.getenv("SQL_PASSWORD");
         String url = "jdbc:mysql://localhost:3306/sakila";
 
         //We use the try/catch so we don't have to implicitly close the db connection (safer)

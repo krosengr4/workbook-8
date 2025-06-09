@@ -15,7 +15,7 @@ public class Main {
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         String username = "root";
-        String password = "611854kr";
+        String password = System.getenv("SQL_PASSWORD");
         String url = "jdbc:mysql://localhost:3306/sakila";
         //define the query
         String query = "SELECT * from actor;";
