@@ -41,8 +41,8 @@ public class Main {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
+        String password = System.getenv("SQL_PASSWORD");
         String userName = "root";
-        String password = "611854kr";
         String url = "jdbc:mysql://localhost:3306/northwind";
 
         try (Connection connection = DriverManager.getConnection(url, userName, password)) {
@@ -52,14 +52,11 @@ public class Main {
             while (results.next()) {
 
                 if (userChoice == 1) {
-                    String productName = results.getString("ProductName");
-
                     System.out.println("Product ID: " + results.getString("ProductID"));
                     System.out.println("Product Name: " + results.getString("ProductName"));
                     System.out.println("Product Price: $" + results.getString("UnitPrice"));
                     System.out.println("Stock: " + results.getString("UnitsInStock"));
                     System.out.println("----------------------------");
-
                 } else if (userChoice == 2) {
                     System.out.println("Category ID: " + results.getString("CategoryID"));
                     System.out.println("Category Name: " + results.getString("CategoryName"));
