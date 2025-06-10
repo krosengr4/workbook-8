@@ -50,12 +50,6 @@ public class Main {
 
         ArrayList<Printable> northwindData = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
         try (BasicDataSource dataSource = new BasicDataSource()) {
 
             dataSource.setUrl(url);
