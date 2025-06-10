@@ -95,9 +95,13 @@ public class Main {
     }
 
     public static void printData(ArrayList<Printable> northwindData) {
-        for (Printable column : northwindData) {
-            column.print();
-            System.out.println("------------------------------");
+        if (northwindData.isEmpty()) {
+            System.out.println("There is nothing in the list...");
+        } else {
+            for (Printable column : northwindData) {
+                column.print();
+                System.out.println("------------------------------");
+            }
         }
     }
 
