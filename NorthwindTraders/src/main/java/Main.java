@@ -63,10 +63,15 @@ public class Main {
                     System.out.println("-----------------------------");
 
                 } else if (userChoice == 2) {
-                    System.out.println("Category ID: " + results.getString("CategoryID"));
-                    System.out.println("Category Name: " + results.getString("CategoryName"));
-                    System.out.println("Description: " + results.getString("Description"));
-                    System.out.println("----------------------------------------------");
+
+                    int catID = Integer.parseInt(results.getString("CategoryID"));
+                    String catName = results.getString("CategoryName");
+                    String catDescription = results.getString("Description");
+
+                    Category newCategory = new Category(catID, catName, catDescription);
+                    newCategory.printCategory();
+                    System.out.println("--------------------------------");
+
                 } else if (userChoice == 3) {
                     System.out.println("Employee Name: " + results.getString("FirstName") + " " + results.getString("LastName"));
                     System.out.println("Employee Title: " + results.getString("Title"));
