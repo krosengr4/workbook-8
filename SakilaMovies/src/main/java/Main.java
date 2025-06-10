@@ -85,17 +85,8 @@ public class Main {
             dataSource.setUrl(url);
             dataSource.setUsername(userName);
             dataSource.setPassword(password);
-            Connection connection = dataSource.getConnection();
 
-            String secureQuery = "SELECT * FROM film " +
-                    "JOIN film_actor ON film_actor.film_id = film.film_id " +
-                    "WHERE actor_id = (SELECT actor_id FROM actor " +
-                    "WHERE first_name = ? AND last_name = ?);";
-            PreparedStatement preparedStatement = connection.prepareStatement(secureQuery);
-            preparedStatement.setString(1, firstName);
-            preparedStatement.setString(2, lastName);
-
-            ResultSet results = preparedStatement.executeQuery();
+            ResultSet results = getFilmResults(firstName, lastName, dataSource);
 
             while (results.next()) {
                 String title = results.getString("title");
@@ -112,6 +103,20 @@ public class Main {
         }
 
         return filmsList;
+    }
+
+    private static ResultSet getFilmResults(String firstName, String lastName, BasicDataSource dataSource) throws SQLException{
+        Connection connection = dataSource.getConnection();
+
+        String secureQuery = "SELECT * FROM film " +
+                "JOIN film_actor ON film_actor.film_id = film.film_id " +
+                "WHERE actor_id = (SELECT actor_id FROM actor " +
+                "WHERE first_name = ? AND last_name = ?);";
+        PreparedStatement preparedStatement = connection.prepareStatement(secureQuery);
+        preparedStatement.setString(1, firstName);
+        preparedStatement.setString(2, lastName);
+
+        return preparedStatement.executeQuery();
     }
 
     public static ArrayList<Printable> findActors(String actorLastName) {
