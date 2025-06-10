@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="36a93d5e-67a0-4c5c-b7ec-98cf6e723afe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/SecureStatements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SecureStatements.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +47,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.CodingJDBC.executor": "Run",
+    "Application.HandlingExceptions.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.SecureStatements.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",

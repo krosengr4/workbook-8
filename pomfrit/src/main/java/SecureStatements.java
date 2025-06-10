@@ -3,20 +3,25 @@ import java.util.Scanner;
 
 public class SecureStatements {
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Select a film title to search: ");
         String userInput = myScanner.nextLine();
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        try {
+            //Load the driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         String username = "root";
         String passWord = System.getenv("SQL_PASSWORD");
         String url = "jdbc:mysql://localhost:3306/sakila";
 
-        //We use the try/catch so we don't have to implicitly close the db connection (safer)
+        //We use the try/catch with resources so we don't have to implicitly close the db connection (safer)
         try (Connection connection = DriverManager.getConnection(url, username, passWord)) {
-            // This secureQuery will replace the user input with the "?"
+            // This secureQuery will replace the "?" with the user input
             // This is so that the user cannot run a "DROP TABLE;" command
             String secureQuery = "SELECT * FROM film WHERE title = ?";
 
