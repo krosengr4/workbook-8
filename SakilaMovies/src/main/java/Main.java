@@ -50,4 +50,12 @@ public class Main {
 
         return actorsList;
     }
+
+    public static void printData(ArrayList<Printable> dataList) {
+        for (Printable column : dataList) {
+            column.print();
+            System.out.println("--------------------------------");
+        }
+
+    }
 }
