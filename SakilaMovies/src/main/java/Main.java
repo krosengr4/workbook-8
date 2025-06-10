@@ -95,6 +95,13 @@ public class Main {
                 int length = Integer.parseInt(results.getString("length"));
                 String rating = results.getString("rating");
 
+                int actorID = Integer.parseInt(results.getString("actor_id"));
+                String resultFirstName = results.getString("first_name");
+                String resultLastName = results.getString("last_name");
+
+                Actor actor = new Actor(actorID, resultFirstName, resultLastName);
+                filmsList.add(actor);
+
                 Film newFilm = new Film(title, description, releaseYear, length, rating);
                 filmsList.add(newFilm);
             }
@@ -108,10 +115,10 @@ public class Main {
     private static ResultSet getFilmResults(String firstName, String lastName, BasicDataSource dataSource) throws SQLException{
         Connection connection = dataSource.getConnection();
 
-        String secureQuery = "SELECT * FROM film " +
-                "JOIN film_actor ON film_actor.film_id = film.film_id " +
-                "WHERE actor_id = (SELECT actor_id FROM actor " +
-                "WHERE first_name = ? AND last_name = ?);";
+        String secureQuery = "SELECT t1.*, t2.actor_id, t2.first_name, t2.last_name from film t1, actor t2, film_actor t3 " +
+                "WHERE t1.film_id = t3.film_id " +
+                "AND t3.actor_id = t2.actor_id " +
+                "AND first_name = ? AND last_name = ?;";
         PreparedStatement preparedStatement = connection.prepareStatement(secureQuery);
         preparedStatement.setString(1, firstName);
         preparedStatement.setString(2, lastName);
