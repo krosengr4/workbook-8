@@ -2,11 +2,11 @@ public class Film implements Printable{
 
     String title;
     String description;
-    int releaseYear;
+    String releaseYear;
     int length;
     String rating;
 
-    public Film (String title, String description, int releaseYear, int length, String rating) {
+    public Film (String title, String description, String releaseYear, int length, String rating) {
         this.title = title;
         this.description = description;
         this.releaseYear = releaseYear;
