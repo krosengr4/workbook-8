@@ -18,15 +18,15 @@ public class Main {
             String query = "";
 
             System.out.println("-----OPTIONS-----");
-            System.out.println("1 - See all product names\n2 - See product categories\n3 - See all employee names\n4 - See all customers\n0 - Exit");
+            System.out.println("1 - Display All Products\n2 - Display All Customers\n3 - Display All Categories\n4 - Display All Employees\n0 - Exit");
             System.out.println("Please select an option: ");
             int userQueryChoice = Integer.parseInt(myScanner.nextLine());
 
             switch (userQueryChoice) {
                 case 1 -> query = "SELECT * from products;";
-                case 2 -> query = "SELECT * from categories ORDER BY CategoryID;";
-                case 3 -> query = "SELECT * from employees;";
-                case 4 -> query = "SELECT * from customers ORDER BY Country;";
+                case 2 -> query = "SELECT * from customers ORDER BY Country;";
+                case 3 -> query = "SELECT * from categories ORDER BY CategoryID;";
+                case 4 -> query = "SELECT * from employees";
                 case 0 -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter a number listed on the screen!");
             }
@@ -43,7 +43,6 @@ public class Main {
 
         System.out.println("\n\nHave a Nice Day! :)");
     }
-
 
     public static void queryNorthwindColumn(int userChoice, String query) {
 
@@ -66,6 +65,11 @@ public class Main {
                     northwindData.add(newProduct);
 
                 } else if (userChoice == 2) {
+                    Customer newCustomer = new Customer(results.getString("ContactName"), results.getString("CompanyName"), results.getString("City"),
+                            results.getString("Country"), results.getString("Phone"));
+                    northwindData.add(newCustomer);
+
+                } else if (userChoice == 3) {
                     int catID = Integer.parseInt(results.getString("CategoryID"));
                     String catName = results.getString("CategoryName");
                     String catDescription = results.getString("Description");
@@ -73,14 +77,9 @@ public class Main {
                     Category newCategory = new Category(catID, catName, catDescription);
                     northwindData.add(newCategory);
 
-                } else if (userChoice == 3) {
+                } else if (userChoice == 4) {
                     Employee newEmployee = new Employee(results.getString("FirstName"), results.getString("LastName"), results.getString("Title"));
                     northwindData.add(newEmployee);
-
-                } else if (userChoice == 4) {
-                    Customer newCustomer = new Customer(results.getString("ContactName"), results.getString("CompanyName"), results.getString("City"),
-                            results.getString("Country"), results.getString("Phone"));
-                    northwindData.add(newCustomer);
 
                 }
             }
@@ -89,7 +88,7 @@ public class Main {
         }
 
         printData(northwindData);
-        if (userChoice == 2) {
+        if (userChoice == 3) {
             getCategoryProducts();
         }
     }
@@ -109,7 +108,7 @@ public class Main {
 
         ArrayList<Printable> productData = new ArrayList<>();
 
-        System.out.println("Select a category ID to see its products: ");
+        System.out.println("\n\nSelect a category ID to see its products: ");
         String userCatChoice = myScanner.nextLine().trim();
 
         try (Connection connection = DriverManager.getConnection(url, userName, password)) {
