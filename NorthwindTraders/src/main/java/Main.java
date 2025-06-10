@@ -12,7 +12,7 @@ public class Main {
             Scanner myScanner = new Scanner(System.in);
 
             System.out.println("-----OPTIONS-----");
-            System.out.println("1 - See all product names\n2 - See product categories\n3 - See all employee names");
+            System.out.println("1 - See all product names\n2 - See product categories\n3 - See all employee names\n4 - See all customers\n0 - Exit");
             System.out.println("Please select 1-3: ");
             int userQueryChoice = Integer.parseInt(myScanner.nextLine());
 
@@ -20,6 +20,8 @@ public class Main {
                 case 1 -> query = "SELECT * from products;";
                 case 2 -> query = "SELECT * from categories;";
                 case 3 -> query = "SELECT * from employees;";
+                case 4 -> query = "SELECT * from customers;";
+                case 0 -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter 1 through 3!");
             }
 
@@ -37,15 +39,15 @@ public class Main {
     }
 
 
-    public static void queryNorthwindColumn(int userChoice, String query) throws ClassNotFoundException {
-
-        Class.forName("com.mysql.cj.jdbc.Driver");
+    public static void queryNorthwindColumn(int userChoice, String query) {
 
         String password = System.getenv("SQL_PASSWORD");
         String userName = "root";
         String url = "jdbc:mysql://localhost:3306/northwind";
 
         try (Connection connection = DriverManager.getConnection(url, userName, password)) {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(query);
 
@@ -78,9 +80,15 @@ public class Main {
 
                     newEmployee.printEmployee();
                     System.out.println("------------------------------");
+                } else if (userChoice == 4) {
+                    Customer newCustomer = new Customer(results.getString("ContactName"), results.getString("CompanyName"), results.getString("City"),
+                            results.getString("Country"), results.getString("Phone"));
+
+                    newCustomer.printCustomer();
+                    System.out.println("-------------------------------");
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
