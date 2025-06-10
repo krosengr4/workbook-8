@@ -13,8 +13,18 @@ public class Main {
 
     public static void main(String[] args) {
 
-        searchForActors();
+        boolean ifContinue = true;
 
+        while (ifContinue) {
+            searchForActors();
+            System.out.println("Would you like to search again? (Y or N): ");
+            String userTryAgain = myScanner.nextLine().trim();
+
+            if (userTryAgain.equalsIgnoreCase("n")){
+                ifContinue = false;
+                System.out.println("Have A Nice Day! :)");
+            }
+        }
     }
 
     public static void searchForActors() {
@@ -39,20 +49,29 @@ public class Main {
 
     public static void searchForFilm() {
 
-        System.out.println("\nPlease enter the actors full name ('firstName lastName') to see what films they are in!");
-        System.out.println("Enter here: ");
-        String actorFullName = myScanner.nextLine().trim();
+        boolean ifContinue = true;
 
-        ArrayList<Printable> filmsList = findFilms(actorFullName);
+        while (ifContinue) {
+            System.out.println("\nPlease enter the actors full name ('firstName lastName') to see what films they are in!");
+            System.out.println("Enter here: ");
+            String actorFullName = myScanner.nextLine().trim();
 
-        if (filmsList.isEmpty()) {
-            System.out.println("There are no films with that actor...");
-        } else {
-            System.out.printf("\t\t-------FILMS WITH %s-------\n", actorFullName.toUpperCase());
-            printData(filmsList);
+            ArrayList<Printable> filmsList = findFilms(actorFullName);
+
+            if (filmsList.isEmpty()) {
+                System.out.println("There are no films with that actor...");
+                System.out.println("Try again? (Y or N): ");
+                String userTryAgain = myScanner.nextLine().trim();
+
+                if (userTryAgain.equalsIgnoreCase("n")) {
+                    ifContinue = false;
+                }
+            } else {
+                System.out.printf("\t\t-------FILMS WITH %s-------\n", actorFullName.toUpperCase());
+                printData(filmsList);
+                ifContinue = false;
+            }
         }
-
-
     }
 
     public static ArrayList<Printable> findFilms(String actorFullName) {
