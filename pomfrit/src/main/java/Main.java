@@ -11,6 +11,7 @@ public class Main {
         JDBCConnection();
     }
 
+    //! Make sure to add the "mysql-connector-java" dependency from mysql
     public static void JDBCConnection() throws ClassNotFoundException, SQLException {
         // Load the mySQL driver
         Class.forName("com.mysql.cj.jdbc.Driver");

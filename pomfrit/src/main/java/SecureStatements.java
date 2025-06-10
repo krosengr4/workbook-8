@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class SecureStatements {
 
+    //! Make sure to add the "mysql-connector-java" dependency from mysql
     public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Select a film title to search: ");

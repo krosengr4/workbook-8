@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 public class DataSource {
 
+    //! Make sure to add the "mysql-connector-java" dependency from mysql
+    //! Make sure to add the "commons-dbcp2" dependency from apache.commons
     public static void main(String[] args) {
 
         String url = "jdbc:mysql://localhost:3306/sakila";
