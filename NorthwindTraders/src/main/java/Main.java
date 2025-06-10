@@ -48,8 +48,13 @@ public class Main {
 
         ArrayList<Printable> northwindData = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(url, userName, password)) {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (Connection connection = DriverManager.getConnection(url, userName, password)) {
 
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(query);
@@ -83,7 +88,7 @@ public class Main {
 
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
