@@ -73,9 +73,11 @@ public class Main {
                     System.out.println("--------------------------------");
 
                 } else if (userChoice == 3) {
-                    System.out.println("Employee Name: " + results.getString("FirstName") + " " + results.getString("LastName"));
-                    System.out.println("Employee Title: " + results.getString("Title"));
-                    System.out.println("-------------------------------------------");
+
+                    Employee newEmployee = new Employee(results.getString("FirstName"), results.getString("LastName"), results.getString("Title"));
+
+                    newEmployee.printEmployee();
+                    System.out.println("------------------------------");
                 }
             }
         } catch (SQLException e) {
