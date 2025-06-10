@@ -15,7 +15,7 @@ public class Product {
     public void printProduct() {
         System.out.println("Product ID: " + this.productID);
         System.out.println("Product Name: " + this.name);
-        System.out.println("Unit Price: $" + this.unitPrice);
+        System.out.printf("Unit Price: $%.2f\n", this.unitPrice);
         System.out.println("Units In Stock: " + this.unitsInStock);
     }
 

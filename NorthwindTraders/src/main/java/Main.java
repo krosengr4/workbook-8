@@ -52,11 +52,16 @@ public class Main {
             while (results.next()) {
 
                 if (userChoice == 1) {
-                    System.out.println("Product ID: " + results.getString("ProductID"));
-                    System.out.println("Product Name: " + results.getString("ProductName"));
-                    System.out.println("Product Price: $" + results.getString("UnitPrice"));
-                    System.out.println("Stock: " + results.getString("UnitsInStock"));
-                    System.out.println("----------------------------");
+
+                    int productID = Integer.parseInt(results.getString("ProductID"));
+                    String productName = results.getString("ProductName");
+                    double unitPrice = Double.parseDouble(results.getString("UnitPrice"));
+                    int unitsInStock = Integer.parseInt(results.getString("UnitsInStock"));
+
+                    Product newProduct = new Product(productID, productName, unitPrice, unitsInStock);
+                    newProduct.printProduct();
+                    System.out.println("-----------------------------");
+
                 } else if (userChoice == 2) {
                     System.out.println("Category ID: " + results.getString("CategoryID"));
                     System.out.println("Category Name: " + results.getString("CategoryName"));
