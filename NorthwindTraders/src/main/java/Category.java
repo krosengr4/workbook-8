@@ -1,4 +1,4 @@
-public class Category {
+public class Category implements Printable{
 
     int categoryID;
     String name;
@@ -10,7 +10,7 @@ public class Category {
         this.description = description;
     }
 
-    public void printCategory() {
+    public void print() {
         System.out.println("Category ID: " + this.categoryID);
         System.out.println("Category Name: " + this.name);
         System.out.println("Category Description: " + this.description);

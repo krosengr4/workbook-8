@@ -1,9 +1,10 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) {
 
         boolean ifContinue = true;
 
@@ -61,7 +62,7 @@ public class Main {
                     int unitsInStock = Integer.parseInt(results.getString("UnitsInStock"));
 
                     Product newProduct = new Product(productID, productName, unitPrice, unitsInStock);
-                    newProduct.printProduct();
+                    newProduct.print();
                     System.out.println("-----------------------------");
 
                 } else if (userChoice == 2) {
@@ -71,20 +72,20 @@ public class Main {
                     String catDescription = results.getString("Description");
 
                     Category newCategory = new Category(catID, catName, catDescription);
-                    newCategory.printCategory();
+                    newCategory.print();
                     System.out.println("--------------------------------");
 
                 } else if (userChoice == 3) {
 
                     Employee newEmployee = new Employee(results.getString("FirstName"), results.getString("LastName"), results.getString("Title"));
 
-                    newEmployee.printEmployee();
+                    newEmployee.print();
                     System.out.println("------------------------------");
                 } else if (userChoice == 4) {
                     Customer newCustomer = new Customer(results.getString("ContactName"), results.getString("CompanyName"), results.getString("City"),
                             results.getString("Country"), results.getString("Phone"));
 
-                    newCustomer.printCustomer();
+                    newCustomer.print();
                     System.out.println("-------------------------------");
                 }
             }

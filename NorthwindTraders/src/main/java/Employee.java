@@ -1,4 +1,4 @@
-public class Employee {
+public class Employee implements Printable {
 
     String firstName;
     String lastName;
@@ -10,7 +10,7 @@ public class Employee {
         this.title = title;
     }
 
-    public void printEmployee() {
+    public void print() {
         System.out.println("First Name: " + this.firstName);
         System.out.println("Last Name: " + this.lastName);
         System.out.println("Title: " + this.title);

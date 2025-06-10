@@ -1,4 +1,4 @@
-public class Product {
+public class Product implements Printable{
 
     int productID;
     String name;
@@ -12,7 +12,7 @@ public class Product {
         this.unitsInStock = unitsInStock;
     }
 
-    public void printProduct() {
+    public void print() {
         System.out.println("Product ID: " + this.productID);
         System.out.println("Product Name: " + this.name);
         System.out.printf("Unit Price: $%.2f\n", this.unitPrice);

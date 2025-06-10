@@ -1,4 +1,4 @@
-public class Customer {
+public class Customer implements Printable{
 
     String contactName;
     String companyName;
@@ -14,7 +14,7 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public void printCustomer() {
+    public void print() {
         System.out.println("Contact Name: " + this.contactName);
         System.out.println("Company Name: " + this.companyName);
         System.out.println("City: " + this.city);
