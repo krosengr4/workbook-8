@@ -1,3 +1,5 @@
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -54,7 +56,13 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        try (Connection connection = DriverManager.getConnection(url, userName, password)) {
+        try (BasicDataSource dataSource = new BasicDataSource()) {
+
+            dataSource.setUrl(url);
+            dataSource.setUsername(userName);
+            dataSource.setPassword(password);
+
+            Connection connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery(query);
@@ -116,7 +124,13 @@ public class Main {
         System.out.println("\n\nSelect a category ID to see its products: ");
         String userCatChoice = myScanner.nextLine().trim();
 
-        try (Connection connection = DriverManager.getConnection(url, userName, password)) {
+        try (BasicDataSource dataSource = new BasicDataSource()) {
+
+            dataSource.setUrl(url);
+            dataSource.setUsername(userName);
+            dataSource.setPassword(password);
+
+            Connection connection = dataSource.getConnection();
 
             String secureQuery = "SELECT * FROM products WHERE CategoryID = ?";
             PreparedStatement prepStatement = connection.prepareStatement(secureQuery);
