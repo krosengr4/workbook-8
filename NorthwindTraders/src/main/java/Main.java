@@ -42,6 +42,8 @@ public class Main {
 
     public static void queryNorthwindColumn(int userChoice, String query) {
 
+        ArrayList<Printable> northwindData = new ArrayList<>();
+
         String password = System.getenv("SQL_PASSWORD");
         String userName = "root";
         String url = "jdbc:mysql://localhost:3306/northwind";
@@ -53,44 +55,45 @@ public class Main {
             ResultSet results = statement.executeQuery(query);
 
             while (results.next()) {
-
                 if (userChoice == 1) {
-
                     int productID = Integer.parseInt(results.getString("ProductID"));
                     String productName = results.getString("ProductName");
                     double unitPrice = Double.parseDouble(results.getString("UnitPrice"));
                     int unitsInStock = Integer.parseInt(results.getString("UnitsInStock"));
 
                     Product newProduct = new Product(productID, productName, unitPrice, unitsInStock);
-                    newProduct.print();
-                    System.out.println("-----------------------------");
+                    northwindData.add(newProduct);
 
                 } else if (userChoice == 2) {
-
                     int catID = Integer.parseInt(results.getString("CategoryID"));
                     String catName = results.getString("CategoryName");
                     String catDescription = results.getString("Description");
 
                     Category newCategory = new Category(catID, catName, catDescription);
-                    newCategory.print();
-                    System.out.println("--------------------------------");
+                    northwindData.add(newCategory);
 
                 } else if (userChoice == 3) {
-
                     Employee newEmployee = new Employee(results.getString("FirstName"), results.getString("LastName"), results.getString("Title"));
+                    northwindData.add(newEmployee);
 
-                    newEmployee.print();
-                    System.out.println("------------------------------");
                 } else if (userChoice == 4) {
                     Customer newCustomer = new Customer(results.getString("ContactName"), results.getString("CompanyName"), results.getString("City"),
                             results.getString("Country"), results.getString("Phone"));
+                    northwindData.add(newCustomer);
 
-                    newCustomer.print();
-                    System.out.println("-------------------------------");
                 }
             }
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+
+        printData(northwindData);
+    }
+
+    public static void printData(ArrayList<Printable> northwindData) {
+        for (Printable column : northwindData) {
+            column.print();
+            System.out.println("------------------------------");
         }
     }
 }
