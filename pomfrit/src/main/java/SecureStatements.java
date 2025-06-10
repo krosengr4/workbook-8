@@ -8,6 +8,8 @@ public class SecureStatements {
         System.out.println("Select a film title to search: ");
         String userInput = myScanner.nextLine();
 
+        //! JDBC = Java Database Connection
+
         try {
             //Load the driver
             Class.forName("com.mysql.cj.jdbc.Driver");
