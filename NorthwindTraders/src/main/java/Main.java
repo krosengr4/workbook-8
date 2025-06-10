@@ -4,26 +4,31 @@ import java.util.Scanner;
 
 public class Main {
 
+    static Scanner myScanner = new Scanner(System.in);
+
+    static String password = System.getenv("SQL_PASSWORD");
+    static String userName = "root";
+    static String url = "jdbc:mysql://localhost:3306/northwind";
+
     public static void main(String[] args) {
 
         boolean ifContinue = true;
 
-        while (ifContinue){
+        while (ifContinue) {
             String query = "";
-            Scanner myScanner = new Scanner(System.in);
 
             System.out.println("-----OPTIONS-----");
             System.out.println("1 - See all product names\n2 - See product categories\n3 - See all employee names\n4 - See all customers\n0 - Exit");
-            System.out.println("Please select 1-3: ");
+            System.out.println("Please select an option: ");
             int userQueryChoice = Integer.parseInt(myScanner.nextLine());
 
             switch (userQueryChoice) {
                 case 1 -> query = "SELECT * from products;";
-                case 2 -> query = "SELECT * from categories;";
+                case 2 -> query = "SELECT * from categories ORDER BY CategoryID;";
                 case 3 -> query = "SELECT * from employees;";
-                case 4 -> query = "SELECT * from customers;";
+                case 4 -> query = "SELECT * from customers ORDER BY Country;";
                 case 0 -> ifContinue = false;
-                default -> System.err.println("ERROR! Please enter 1 through 3!");
+                default -> System.err.println("ERROR! Please enter a number listed on the screen!");
             }
 
             queryNorthwindColumn(userQueryChoice, query);
@@ -43,10 +48,6 @@ public class Main {
     public static void queryNorthwindColumn(int userChoice, String query) {
 
         ArrayList<Printable> northwindData = new ArrayList<>();
-
-        String password = System.getenv("SQL_PASSWORD");
-        String userName = "root";
-        String url = "jdbc:mysql://localhost:3306/northwind";
 
         try (Connection connection = DriverManager.getConnection(url, userName, password)) {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -88,6 +89,9 @@ public class Main {
         }
 
         printData(northwindData);
+        if (userChoice == 2) {
+            getCategoryProducts();
+        }
     }
 
     public static void printData(ArrayList<Printable> northwindData) {
@@ -95,5 +99,38 @@ public class Main {
             column.print();
             System.out.println("------------------------------");
         }
+    }
+
+    public static void getCategoryProducts() {
+
+        ArrayList<Printable> productData = new ArrayList<>();
+
+        System.out.println("Select a category ID to see its products: ");
+        String userCatChoice = myScanner.nextLine().trim();
+
+        try (Connection connection = DriverManager.getConnection(url, userName, password)) {
+
+            String secureQuery = "SELECT * FROM products WHERE CategoryID = ?";
+            PreparedStatement prepStatement = connection.prepareStatement(secureQuery);
+            prepStatement.setString(1, userCatChoice);
+
+            ResultSet results = prepStatement.executeQuery();
+
+            while (results.next()) {
+
+                int productID = Integer.parseInt(results.getString("ProductID"));
+                String productName = results.getString("ProductName");
+                double unitPrice = Double.parseDouble(results.getString("UnitPrice"));
+                int unitsInStock = Integer.parseInt(results.getString("UnitsInStock"));
+
+                Product newProduct = new Product(productID, productName, unitPrice, unitsInStock);
+                productData.add(newProduct);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        printData(productData);
     }
 }
