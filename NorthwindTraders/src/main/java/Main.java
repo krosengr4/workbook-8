@@ -16,6 +16,7 @@ public class Main {
     static BasicDataSource dataSource = new BasicDataSource();
     static ProductDao productDao = new ProductDao(dataSource);
     static CustomerDao customerDao = new CustomerDao(dataSource);
+    static CategoryDao categoryDao = new CategoryDao(dataSource);
 
     public static void main(String[] args) {
 
@@ -33,7 +34,7 @@ public class Main {
             switch (userQueryChoice) {
                 case 1 -> processDisplayAllProducts();
                 case 2 -> processDisplayAllCustomers();
-                case 3 -> query = "SELECT * from categories ORDER BY CategoryID;";
+                case 3 -> processDisplayAllCategories();
                 case 4 -> query = "SELECT * from employees";
                 case 0 -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter a number listed on the screen!");
@@ -50,6 +51,12 @@ public class Main {
         }
 
         System.out.println("\n\nHave a Nice Day! :)");
+    }
+
+    public static void setDataSource() {
+        dataSource.setUrl(url);
+        dataSource.setUsername(userName);
+        dataSource.setPassword(password);
     }
 
     public static void processDisplayAllProducts() {
@@ -72,11 +79,16 @@ public class Main {
         }
     }
 
-    public static void setDataSource() {
-        dataSource.setUrl(url);
-        dataSource.setUsername(userName);
-        dataSource.setPassword(password);
+    public static void processDisplayAllCategories() {
+        ArrayList<Printable> categoriesList = categoryDao.getAllCategories();
+
+        if (categoriesList.isEmpty()) {
+            System.out.println("There are no categories to display...");
+        } else {
+            printData(categoriesList);
+        }
     }
+
 
     public static void queryNorthwindColumn(int userChoice, String query) {
 
