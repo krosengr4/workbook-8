@@ -2,6 +2,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -12,8 +13,12 @@ public class Main {
     static String userName = "root";
     static String url = "jdbc:mysql://localhost:3306/northwind";
 
+    static BasicDataSource dataSource = new BasicDataSource();
+    static ProductDao productDao = new ProductDao(dataSource);
+
     public static void main(String[] args) {
 
+        setDataSource();
         boolean ifContinue = true;
 
         while (ifContinue) {
@@ -25,7 +30,7 @@ public class Main {
             int userQueryChoice = Integer.parseInt(myScanner.nextLine());
 
             switch (userQueryChoice) {
-                case 1 -> query = "SELECT * from products;";
+                case 1 -> processDisplayAllProducts();
                 case 2 -> query = "SELECT * from customers ORDER BY Country;";
                 case 3 -> query = "SELECT * from categories ORDER BY CategoryID;";
                 case 4 -> query = "SELECT * from employees";
@@ -33,7 +38,7 @@ public class Main {
                 default -> System.err.println("ERROR! Please enter a number listed on the screen!");
             }
 
-            queryNorthwindColumn(userQueryChoice, query);
+//            queryNorthwindColumn(userQueryChoice, query);
 
             System.out.println("\n\nWould you like to search for another? (Y or N): ");
             String userContinue = myScanner.nextLine();
@@ -44,6 +49,24 @@ public class Main {
         }
 
         System.out.println("\n\nHave a Nice Day! :)");
+    }
+
+    public static void processDisplayAllProducts() {
+        ArrayList<Printable> productsList = productDao.getAllProducts();
+
+        if (productsList.isEmpty()) {
+            System.out.println("There are no products to display...");
+        } else {
+            printData(productsList);
+        }
+
+
+    }
+
+    public static void setDataSource() {
+        dataSource.setUrl(url);
+        dataSource.setUsername(userName);
+        dataSource.setPassword(password);
     }
 
     public static void queryNorthwindColumn(int userChoice, String query) {
