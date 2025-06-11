@@ -13,10 +13,34 @@ public class Main {
 
     public static void main(String[] args) {
 
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl(url);
+        dataSource.setUsername(userName);
+        dataSource.setPassword(password);
+
+        SakilaDataManager dataManager = new SakilaDataManager(dataSource);
+
+
         boolean ifContinue = true;
 
         while (ifContinue) {
-            searchForActors();
+
+            System.out.println("Enter the last name of an actor: ");
+            String actorLastName = myScanner.nextLine().trim();
+
+            ArrayList<Printable> actorsList = dataManager.getActors(actorLastName);
+
+            if (actorsList.isEmpty()) {
+                System.out.println("There were no actors with that last name...");
+            } else {
+                printData(actorsList);
+                ifContinue = false;
+
+//                searchForFilm();
+            }
+
+//            searchForActors();
+
             System.out.println("Would you like to search again? (Y or N): ");
             String userTryAgain = myScanner.nextLine().trim();
 
@@ -146,6 +170,7 @@ public class Main {
                 int actorID = Integer.parseInt(results.getString("actor_id"));
                 String firstName = results.getString("first_name");
                 String lastName = results.getString("last_name");
+
                 Actor newActor = new Actor(actorID, firstName, lastName);
 
                 actorsList.add(newActor);
