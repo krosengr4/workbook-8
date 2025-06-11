@@ -15,6 +15,7 @@ public class Main {
 
     static BasicDataSource dataSource = new BasicDataSource();
     static ProductDao productDao = new ProductDao(dataSource);
+    static CustomerDao customerDao = new CustomerDao(dataSource);
 
     public static void main(String[] args) {
 
@@ -31,7 +32,7 @@ public class Main {
 
             switch (userQueryChoice) {
                 case 1 -> processDisplayAllProducts();
-                case 2 -> query = "SELECT * from customers ORDER BY Country;";
+                case 2 -> processDisplayAllCustomers();
                 case 3 -> query = "SELECT * from categories ORDER BY CategoryID;";
                 case 4 -> query = "SELECT * from employees";
                 case 0 -> ifContinue = false;
@@ -58,6 +59,16 @@ public class Main {
             System.out.println("There are no products to display...");
         } else {
             printData(productsList);
+        }
+    }
+
+    public static void processDisplayAllCustomers() {
+        ArrayList<Printable> customersList = customerDao.getAllCustomers();
+
+        if (customersList.isEmpty()) {
+            System.out.println("There are no customers to display...");
+        } else {
+            printData(customersList);
         }
     }
 
