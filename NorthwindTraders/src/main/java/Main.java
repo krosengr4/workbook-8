@@ -86,7 +86,42 @@ public class Main {
             System.out.println("There are no categories to display...");
         } else {
             printData(categoriesList);
+
+            System.out.println("\nWould you like to see products from a certain category? (Y or N)");
+            System.out.println("Enter here: ");
+            String userChoice = myScanner.nextLine().trim();
+
+            if (userChoice.equalsIgnoreCase("y")) {
+                displayProductsFromCategory();
+            }
         }
+    }
+
+    public static void displayProductsFromCategory() {
+
+        System.out.println("\nSelect a CategoryID Number (1-8): ");
+        String userCatChoice = myScanner.nextLine();
+
+        int userCatChoiceInt = Integer.parseInt(userCatChoice);
+
+        boolean ifRetry = true;
+
+        while (ifRetry) {
+            if (userCatChoiceInt < 1 || userCatChoiceInt > 8) {
+                System.err.println("ERROR! We only have 8 Categories! Enter a number between 1 and 8");
+            } else {
+                ArrayList<Printable> productsList = productDao.getProductsFromCatID(userCatChoice);
+
+                if (productsList.isEmpty()) {
+                    System.out.println("We have no products under that category...");
+                } else {
+                    printData(productsList);
+                }
+
+                ifRetry = false;
+            }
+        }
+
     }
 
 
