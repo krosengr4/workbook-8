@@ -1,8 +1,6 @@
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -28,9 +26,9 @@ public class Main {
             int userQueryChoice = Integer.parseInt(myScanner.nextLine());
 
             switch (userQueryChoice) {
-                case 1 -> processDisplayAllProducts();
-                case 2 -> processDisplayAllCustomers();
-                case 3 -> processDisplayAllCategories();
+                case 1 -> processAllProducts();
+                case 2 -> processAllCustomers();
+                case 3 -> processAllCategories();
                 case 4 -> processAllEmployees();
                 case 0 -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter a number listed on the screen!");
@@ -57,7 +55,7 @@ public class Main {
         dataSource.setPassword(password);
     }
 
-    public static void processDisplayAllProducts() {
+    public static void processAllProducts() {
         ArrayList<Printable> productsList = productDao.getAllProducts();
 
         if (productsList.isEmpty()) {
@@ -67,7 +65,7 @@ public class Main {
         }
     }
 
-    public static void processDisplayAllCustomers() {
+    public static void processAllCustomers() {
         ArrayList<Printable> customersList = customerDao.getAllCustomers();
 
         if (customersList.isEmpty()) {
@@ -77,7 +75,7 @@ public class Main {
         }
     }
 
-    public static void processDisplayAllCategories() {
+    public static void processAllCategories() {
         ArrayList<Printable> categoriesList = categoryDao.getAllCategories();
 
         if (categoriesList.isEmpty()) {
