@@ -1,11 +1,8 @@
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
-
-    static Scanner myScanner = new Scanner(System.in);
 
     static BasicDataSource dataSource = new BasicDataSource();
     static ProductDao productDao = new ProductDao(dataSource);
@@ -22,8 +19,7 @@ public class Main {
 
             System.out.println("-----OPTIONS-----");
             System.out.println("1 - Display All Products\n2 - Display All Customers\n3 - Display All Categories\n4 - Display All Employees\n0 - Exit");
-            System.out.println("Please select an option: ");
-            int userQueryChoice = Integer.parseInt(myScanner.nextLine());
+            int userQueryChoice = Utils.messageAndResponseInt("Please select an option: ");
 
             switch (userQueryChoice) {
                 case 1 -> processAllProducts();
@@ -32,13 +28,6 @@ public class Main {
                 case 4 -> processAllEmployees();
                 case 0 -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter a number listed on the screen!");
-            }
-
-            System.out.println("\n\nWould you like to search for another? (Y or N): ");
-            String userContinue = myScanner.nextLine();
-
-            if (userContinue.equalsIgnoreCase("n")) {
-                ifContinue = false;
             }
         }
 
@@ -84,8 +73,7 @@ public class Main {
             printData(categoriesList);
 
             System.out.println("\nWould you like to see products from a certain category? (Y or N)");
-            System.out.println("Enter here: ");
-            String userChoice = myScanner.nextLine().trim();
+            String userChoice = Utils.promptGetUserInput("Enter here: ");
 
             if (userChoice.equalsIgnoreCase("y")) {
                 displayProductsFromCategory();
@@ -95,9 +83,7 @@ public class Main {
 
     public static void displayProductsFromCategory() {
 
-        System.out.println("\nSelect a CategoryID Number (1-8): ");
-        String userCatChoice = myScanner.nextLine();
-
+        String userCatChoice = Utils.promptGetUserInput("\nSelect a CategoryID Number (1-8): ");
         int userCatChoiceInt = Integer.parseInt(userCatChoice);
 
         boolean ifRetry = true;
@@ -131,13 +117,12 @@ public class Main {
     }
 
     public static void printData(ArrayList<Printable> northwindData) {
-        if (northwindData.isEmpty()) {
-            System.out.println("There is nothing in the list...");
-        } else {
-            for (Printable column : northwindData) {
-                column.print();
-                System.out.println("------------------------------");
-            }
+
+        for (Printable column : northwindData) {
+            column.print();
+            System.out.println("------------------------------");
         }
+
+        Utils.pauseApp();
     }
 }
