@@ -59,8 +59,6 @@ public class Main {
         } else {
             printData(productsList);
         }
-
-
     }
 
     public static void setDataSource() {
