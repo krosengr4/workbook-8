@@ -35,7 +35,7 @@ public class Main {
                 default -> System.err.println("ERROR! Please enter a number that is listed!");
             }
         }
-            System.out.println("Thank you! Goodbye!");
+        System.out.println("Thank you! Goodbye!");
     }
 
     public static void setDataSource() {
@@ -68,8 +68,8 @@ public class Main {
         String newValue = "";
         if (userUpdateOption == 1) {
             System.out.println("Please enter the new company name: ");
-             newValue = myScanner.nextLine().trim();
-        } else if(userUpdateOption == 2) {
+            newValue = myScanner.nextLine().trim();
+        } else if (userUpdateOption == 2) {
             System.out.println("Please enter the new phone number: ");
             newValue = myScanner.nextLine().trim();
         }
@@ -78,7 +78,21 @@ public class Main {
     }
 
     public static void deleteShipper() {
-        System.out.println("Delete Shipper");
+        boolean ifContinue = true;
+
+        while (ifContinue) {
+
+            System.out.println("Enter the ID of the Shipper you want to delete (cannot be 1, 2 or 3!)");
+            System.out.println("Enter Here: ");
+            int shipperID = Integer.parseInt(myScanner.nextLine());
+
+            if (shipperID == 1 || shipperID == 2 || shipperID == 3) {
+                System.err.println("Nice try bucko! Do not enter ShipperID 1, 2 or 3!!!");
+            } else {
+                shipperDao.deleteShipper(shipperID);
+                ifContinue = false;
+            }
+        }
     }
 
     public static void printData(ArrayList<NorthwindData> dataList) {
