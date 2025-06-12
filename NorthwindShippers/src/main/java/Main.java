@@ -15,7 +15,7 @@ public class Main {
         boolean ifContinue = true;
 
         while (ifContinue) {
-            System.out.println("____________SHIPPER OPTIONS____________");
+            System.out.println("\n\n____________SHIPPER OPTIONS____________");
             System.out.println("""
                     1 - Display All Shippers
                     2 - Add New Shipper
@@ -82,12 +82,14 @@ public class Main {
 
         while (ifContinue) {
 
-            System.out.println("Enter the ID of the Shipper you want to delete (cannot be 1, 2 or 3!)");
+            System.out.println("Enter the ID of the Shipper you want to delete (cannot be 1, 2 or 3!). Enter 0 to go back.");
             System.out.println("Enter Here: ");
             int shipperID = Integer.parseInt(myScanner.nextLine());
 
             if (shipperID == 1 || shipperID == 2 || shipperID == 3) {
                 System.err.println("Nice try bucko! Do not enter ShipperID 1, 2 or 3!!!");
+            } else if (shipperID == 0) {
+                ifContinue = false;
             } else {
                 shipperDao.deleteShipper(shipperID);
                 ifContinue = false;
