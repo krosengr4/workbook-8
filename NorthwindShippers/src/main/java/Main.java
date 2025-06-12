@@ -34,9 +34,8 @@ public class Main {
                 case 0 -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter a number that is listed!");
             }
-
-            System.out.println("Thank you! Goodbye!");
         }
+            System.out.println("Thank you! Goodbye!");
     }
 
     public static void setDataSource() {

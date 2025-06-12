@@ -82,4 +82,20 @@ public class ShipperDao {
 
     }
 
+    public void deleteShipper(int shipperID) {
+
+        try (Connection conn = dataSource.getConnection()) {
+            String query = "DELETE FROM shippers WHERE ShipperID = ?";
+            PreparedStatement prepStatement = conn.prepareStatement(query);
+            prepStatement.setInt(1, shipperID);
+
+            int rows = prepStatement.executeUpdate();
+
+            System.out.println("Rows Deleted: " + rows);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
