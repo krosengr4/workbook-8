@@ -23,10 +23,11 @@ public class ShipperDao {
             ResultSet results = prepStatement.executeQuery();
 
             while (results.next()) {
+                int shipperID = Integer.parseInt(results.getString("ShipperID"));
                 String companyName = results.getString("CompanyName");
                 String phoneNumber = results.getString("Phone");
 
-                shippersList.add(new Shipper(companyName, phoneNumber));
+                shippersList.add(new Shipper(shipperID, companyName, phoneNumber));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
