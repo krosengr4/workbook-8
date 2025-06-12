@@ -1,10 +1,13 @@
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Main {
 
     static BasicDataSource dataSource = new BasicDataSource();
+
     static ProductDao productDao = new ProductDao(dataSource);
     static CustomerDao customerDao = new CustomerDao(dataSource);
     static CategoryDao categoryDao = new CategoryDao(dataSource);

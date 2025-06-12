@@ -30,7 +30,6 @@ public class EmployeeDao {
                 employeesList.add(newEmployee);
             }
 
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
