@@ -58,7 +58,7 @@ public class ShipperDao {
         }
     }
 
-    public void updateShipper(int updateOption, String newValue, int shipperID) {
+    public void updateShipper(int updateOption, int shipperID, String newValue) {
 
         try (Connection conn = dataSource.getConnection()) {
             String query = "";

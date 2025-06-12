@@ -60,7 +60,22 @@ public class Main {
     }
 
     public static void updateShipper() {
+        System.out.println("-----OPTIONS-----\n1 - Update Company Name\n2 - Update Phone Number");
+        int userUpdateOption = Integer.parseInt(myScanner.nextLine());
 
+        System.out.println("Insert the ID of the Shipper to update");
+        int shipperID = Integer.parseInt(myScanner.nextLine());
+
+        String newValue = "";
+        if (userUpdateOption == 1) {
+            System.out.println("Please enter the new company name: ");
+             newValue = myScanner.nextLine().trim();
+        } else if(userUpdateOption == 2) {
+            System.out.println("Please enter the new phone number: ");
+            newValue = myScanner.nextLine().trim();
+        }
+
+        shipperDao.updateShipper(userUpdateOption, shipperID, newValue);
     }
 
     public static void deleteShipper() {
