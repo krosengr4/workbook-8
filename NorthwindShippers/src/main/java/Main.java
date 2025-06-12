@@ -19,9 +19,8 @@ public class Main {
             System.out.println("""
                     1 - Display All Shippers
                     2 - Add New Shipper
-                    3 - Update A Phone Number
-                    4 - Update A Company Name
-                    5 - Delete A Shipper
+                    3 - Update A Shipper
+                    4 - Delete A Shipper
                     0 - Exit""");
 
             System.out.println("Enter your option: ");
@@ -30,9 +29,8 @@ public class Main {
             switch (userShipperChoice) {
                 case 1 -> displayAllShippers();
                 case 2 -> insertNewShipper();
-                case 3 -> updateShipperPhone();
-                case 4 -> updateShipperName();
-                case 5 -> deleteShipper();
+                case 3 -> updateShipper();
+                case 4 -> deleteShipper();
                 case 0 -> ifContinue = false;
                 default -> System.err.println("ERROR! Please enter a number that is listed!");
             }
@@ -61,12 +59,8 @@ public class Main {
         shipperDao.insertShipperIntoDB(companyName, phoneNumber);
     }
 
-    public static void updateShipperPhone() {
-        System.out.println("Update phone");
-    }
+    public static void updateShipper() {
 
-    public static void updateShipperName() {
-        System.out.println("Update Name");
     }
 
     public static void deleteShipper() {

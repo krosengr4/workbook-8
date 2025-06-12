@@ -58,4 +58,28 @@ public class ShipperDao {
         }
     }
 
+    public void updateShipper(int updateOption, String newValue, int shipperID) {
+
+        try (Connection conn = dataSource.getConnection()) {
+            String query = "";
+
+            if (updateOption == 1) {
+                query = "UPDATE shippers SET CompanyName = ? WHERE ShipperID = ?";
+            } else if (updateOption == 2) {
+                query = "UPDATE shippers SET Phone = ? WHERE ShipperID = ?";
+            }
+
+            PreparedStatement prepStatement = conn.prepareStatement(query);
+            prepStatement.setString(1, newValue);
+            prepStatement.setInt(2, shipperID);
+
+            int rows = prepStatement.executeUpdate();
+            System.out.println("Rows updated: " + rows);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
