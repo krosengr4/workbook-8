@@ -1,6 +1,8 @@
 public class Order implements NorthwindData{
 
     int orderID;
+    String productName;
+    double total;
     String orderDate;
     String shipDate;
     double freight;
@@ -8,6 +10,11 @@ public class Order implements NorthwindData{
     String shipAddress;
     String shipCity;
     String shipCountry;
+
+    public Order(String productName, double total) {
+        this.productName = productName;
+        this.total = total;
+    }
 
     public Order (int orderID, String orderDate, String shipDate, double freight, String shipName, String shipAddress, String shipCity, String shipCountry) {
         this.orderID = orderID;
