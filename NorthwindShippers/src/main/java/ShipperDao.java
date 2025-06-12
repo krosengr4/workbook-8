@@ -35,4 +35,27 @@ public class ShipperDao {
         return shippersList;
     }
 
+    public void insertShipperIntoDB (String companyName, String phoneNumber) {
+        try (Connection conn = dataSource.getConnection()) {
+
+            String query = "INSERT INTO shippers (CompanyName, Phone) " +
+                    "VALUES (?, ?);";
+            PreparedStatement prepStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            prepStatement.setString(1, companyName);
+            prepStatement.setString(2, phoneNumber);
+
+            int rows = prepStatement.executeUpdate();
+            System.out.println("Rows Updated: " + rows);
+
+            try (ResultSet keys = prepStatement.getGeneratedKeys()) {
+                while (keys.next()) {
+                    System.out.println("Key Added: " + keys.getLong(1));
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
